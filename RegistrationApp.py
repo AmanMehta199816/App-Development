@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
-pip install kivy
-
-
-# In[2]:
-
 
 import kivy
 
@@ -26,13 +18,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import textinput
 from kivy.uix.button import Button
+from kivy.uix.popup import Popup
 
 
 # In[ ]:
 
 
 class RegistrationApp(App):
-    def buid(self):
+    def build(self):
         self.title="Registration Form"
         layout = BoxLayout(orientation='vertical', padding=30, spacing=10)
         head_label=Label(text="Python user Registration App", font_size=26, bold=True,height=40)
@@ -65,6 +58,29 @@ class RegistrationApp(App):
            
         
         return layout
+
+    def register(self, instance):
+        #Collect Information
+        name=self.name_input.text
+        email=self.email_input.text
+        password= self.password_input.text
+        confirm_password=self.confirm_input.text
+        #Validation
+        if name.strip()=='' pr email.strip()=='' or password.strip=='' or confirm_password.strip=='':message="Please fill in all fields"
+        elif password !=confirm_password:
+            message="Passwords do not match"
+
+        else:
+            filename=name+'.txt'
+            with open(filename,'w') as file:
+                file.write('Name'{}\n'.format(name))
+                file.write('Email'{}\n'.format(email))
+                file.write('Password'{}\n'.format(password))
+            message="Registration successfull\nName: {}\Email: {}".format(name, email)
+
+        #Popup
+        popup=Popup(title= "Registration Status", content=Label(text=message), size_hint=(None, None),size=(400, 200))
+        popup.open()
 
 
 # In[ ]:
